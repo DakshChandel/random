@@ -1,0 +1,124 @@
+1) Two Sum
+  class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        java.util.Map<Integer,Integer> map = new java.util.HashMap<>();
+        for(int i=0;i<nums.length;i++){
+            int x = target - nums[i];
+            if(map.containsKey(x)) return new int[]{map.get(x), i};
+            map.put(nums[i], i);
+        }
+        return new int[]{};
+    }
+}
+
+2) Move Zeros
+class Solution {
+    public void moveZeroes(int[] nums) {
+        int j = 0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i] != 0){
+                int t = nums[i];
+                nums[i] = nums[j];
+                nums[j] = t;
+                j++;
+            }
+        }
+    }
+}
+
+3) Remove Duplicates (Sorted Array)
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int j = 1;
+        for(int i=1;i<nums.length;i++){
+            if(nums[i] != nums[i-1]){
+                nums[j] = nums[i];
+                j++;
+            }
+        }
+        return j;
+    }
+}
+
+4) Valid Parentheses
+class Solution {
+    public boolean isValid(String s) {
+        java.util.Stack<Character> st = new java.util.Stack<>();
+        for(char c : s.toCharArray()){
+            if(c=='('||c=='{'||c=='[') st.push(c);
+            else{
+                if(st.isEmpty()) return false;
+                char x = st.pop();
+                if(c==')'&&x!='(') return false;
+                if(c=='}'&&x!='{') return false;
+                if(c==']'&&x!='[') return false;
+            }
+        }
+        return st.isEmpty();
+    }
+}
+
+5) Print Linked List (Iterative)
+class Solution {
+    public void printList(ListNode head) {
+        while(head != null){
+            System.out.print(head.val + " ");
+            head = head.next;
+        }
+    }
+}
+
+6) Count Bits (number of 1s in binary)
+class Solution {
+    public int hammingWeight(int n) {
+        int c = 0;
+        while(n != 0){
+            c += n & 1;
+            n >>>= 1;
+        }
+        return c;
+    }
+}
+
+7) Reverse Bits
+class Solution {
+    public int reverseBits(int n) {
+        int r = 0;
+        for(int i=0;i<32;i++){
+            r <<= 1;
+            r |= (n & 1);
+            n >>>= 1;
+        }
+        return r;
+    }
+}
+
+8) Sort Colors (Dutch National Flag)
+class Solution {
+    public void sortColors(int[] nums) {
+        int low=0, mid=0, high=nums.length-1;
+        while(mid <= high){
+            if(nums[mid]==0){
+                int t = nums[low]; nums[low]=nums[mid]; nums[mid]=t;
+                low++; mid++;
+            } else if(nums[mid]==1){
+                mid++;
+            } else {
+                int t = nums[mid]; nums[mid]=nums[high]; nums[high]=t;
+                high--;
+            }
+        }
+    }
+}
+
+9) Best Time to Buy and Sell Stock
+class Solution {
+    public int maxProfit(int[] prices) {
+        int min = Integer.MAX_VALUE, max = 0;
+        for(int p : prices){
+            if(p < min) min = p;
+            else max = Math.max(max, p - min);
+        }
+        return max;
+    }
+}
